@@ -10,9 +10,19 @@ class Parse{
     try{
       logger.start("Parse Sample.java");
 
+      BufferedReader br = readFile("Sample.java");
+
+
+      br.close();
+    }catch(Exception e){
+      e.printStackTrace();
     }finally{
       logger.finish();
     }
+  }
+
+  public static BufferedReader readFile(String fileName) throw FileNotFoundException {
+    return new BufferedReader(new FileReader(new File("Sample.java")));
   }
 
 }
@@ -24,10 +34,14 @@ class Logger{
 
   public void print(String content){
     if(state == State.LOGGING){
-      System.out.println(System.currentTimeMills() + ": " + content);  
+      System.out.println(System.currentTimeMillis() + ": " + content);  
     }else{
       throw new IllegalStateException("You should call Logger#start before calling Logger#print");
     }
+  }
+
+  public boolean isLogging(){
+    return state == State.LOGGING;
   }
 
   public void start(String logName){
@@ -43,10 +57,10 @@ class Logger{
   }
 
   public void nextState(){
-    if(state == State.IDLE){
-      state = State.LOGGING;
-    }else if(state == State.LOGGING){
+    if(isLogging()){
       state = State.IDLE;
+    }else{
+      state = State.LOGGING;
     }
   }
 
