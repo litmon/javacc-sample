@@ -11,7 +11,11 @@ class Parse{
       logger.start("Parse Sample.java");
 
       BufferedReader br = readFile("Sample.java");
+      String str = "";
 
+      while((str = br.readLine()) != null){
+        System.out.println(str);
+      }
 
       br.close();
     }catch(Exception e){
