@@ -18,7 +18,7 @@ class Parse{
       }
 
       br.close();
-    }catch(Exception e){
+    }catch(FileNotFoundException e){
       e.printStackTrace();
     }finally{
       logger.finish();
